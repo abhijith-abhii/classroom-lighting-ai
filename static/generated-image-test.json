@@ -1,0 +1,119 @@
+{
+  "source": "Built-in image generation tool; one independently prompted synthetic image per project",
+  "prompt": "Use case: photorealistic-natural. Asset type: synthetic computer vision test input for a classroom occupancy prototype. Generate one realistic landscape photograph from a fixed upper corner camera of an EMPTY small classroom, with six empty chairs and desks, one backpack on a desk, strong diagonal window shadows, and a wall-mounted television visibly showing a life-size photograph of a seated adult person. No physically present people. Make the TV frame unambiguous and the depicted person's full torso visible. Natural ordinary room, no logos, no bounding boxes, no infographic, no captions. This is deliberately synthetic evaluation material, not claimed real footage.",
+  "sha256": "a5428b36da37f84da3d3de3d21b196456bf568f1255266e4668730dcc29b83ae",
+  "reviewed_reference": "Human-reviewed synthetic scene: no physically present person; one person depicted on a TV; empty chairs, a bag and shadows. Prompt count of six chairs is approximate, not an annotation.",
+  "actual_model_result": {
+    "detections": [
+      {
+        "label": "person",
+        "score": 0.770850419998169,
+        "box": [
+          0.3815828323364258,
+          0.04163560765854856,
+          0.44086000919342044,
+          0.23292060304195322
+        ]
+      },
+      {
+        "label": "chair",
+        "score": 0.8425029516220093,
+        "box": [
+          0.4078628063201904,
+          0.6785162385981133,
+          0.531548547744751,
+          0.9608991131883987
+        ]
+      },
+      {
+        "label": "chair",
+        "score": 0.820410430431366,
+        "box": [
+          0.7205199241638184,
+          0.743751386277219,
+          0.8721588134765624,
+          0.9974289163630059
+        ]
+      },
+      {
+        "label": "chair",
+        "score": 0.7646588087081909,
+        "box": [
+          0.16854732036590578,
+          0.6248739307484728,
+          0.29959410429000854,
+          0.9140772105277853
+        ]
+      },
+      {
+        "label": "chair",
+        "score": 0.6551890969276428,
+        "box": [
+          0.6724668025970458,
+          0.35771445091734544,
+          0.7430747509002685,
+          0.4222767521472688
+        ]
+      },
+      {
+        "label": "chair",
+        "score": 0.5712859630584717,
+        "box": [
+          0.635710048675537,
+          0.4147536452273105,
+          0.8023552894592285,
+          0.6483490878977675
+        ]
+      },
+      {
+        "label": "screen",
+        "score": 0.6784430742263794,
+        "box": [
+          0.32143871784210204,
+          0.0316461321648131,
+          0.5062004804611206,
+          0.23992073363446176
+        ]
+      }
+    ],
+    "latency_ms": 56.1708752065897,
+    "brightness": 121.20308226441345,
+    "model": "YOLO11n ONNX CPU",
+    "source": "real neural-network inference"
+  },
+  "interpretation": "Detected candidates: person=1, chair=5, screen=1. Person candidates are visual depictions here; unconfigured detector output does not prove room occupancy.",
+  "scope": "Exploratory generated input, n=1 per project, no statistical accuracy claim, no training or threshold tuning, excluded from headline held-out benchmarks.",
+  "control_probe": {
+    "unconfigured": {
+      "interval": 600,
+      "grace": 120,
+      "stale_after": 660,
+      "mode": "auto",
+      "override_until": 0,
+      "state": "occupied",
+      "lights": true,
+      "occupancy": 1,
+      "observed_at": 0,
+      "vacancy_since": null,
+      "negative_checks": 0,
+      "next_check": 600,
+      "reason": "A visual person candidate is present; stationary people are retained"
+    },
+    "configured_tv_zone": {
+      "interval": 600,
+      "grace": 120,
+      "stale_after": 660,
+      "mode": "auto",
+      "override_until": 0,
+      "state": "uncertain",
+      "lights": true,
+      "occupancy": null,
+      "observed_at": 0,
+      "vacancy_since": null,
+      "negative_checks": 0,
+      "next_check": 600,
+      "reason": "Camera failure, poor light or depiction ambiguity; lights held on"
+    },
+    "note": "Known TV zone manually configured after scene inspection; this is a rule demonstration, not learned liveness or an untouched benchmark."
+  }
+}
