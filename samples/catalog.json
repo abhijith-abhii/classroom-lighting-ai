@@ -1,0 +1,33 @@
+[
+  {
+    "id": "generated",
+    "file": "generated-test.png",
+    "label": "AI-generated stress scene \u00b7 exploratory",
+    "source": "Built-in image generation; prompt in generated-test-provenance.json",
+    "synthetic": true
+  },
+  {
+    "id": "1296",
+    "file": "coco-000000001296.jpg",
+    "label": "COCO 1296 \u00b7 held-out example",
+    "url": "http://images.cocodataset.org/val2017/000000001296.jpg",
+    "flickr_url": "http://farm5.staticflickr.com/4010/4690487654_90536a4a16_z.jpg",
+    "license_id": 5
+  },
+  {
+    "id": "209829",
+    "file": "coco-000000209829.jpg",
+    "label": "COCO 209829 \u00b7 held-out example",
+    "url": "http://images.cocodataset.org/val2017/000000209829.jpg",
+    "flickr_url": "http://farm8.staticflickr.com/7036/6968265053_493a3206a2_z.jpg",
+    "license_id": 4
+  },
+  {
+    "id": "54931",
+    "file": "coco-000000054931.jpg",
+    "label": "COCO 54931 \u00b7 held-out example",
+    "url": "http://images.cocodataset.org/val2017/000000054931.jpg",
+    "flickr_url": "http://farm4.staticflickr.com/3707/9707884793_36195de2b5_z.jpg",
+    "license_id": 4
+  }
+]

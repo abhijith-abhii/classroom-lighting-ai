@@ -1,0 +1,7 @@
+{
+  "source": "Built-in image generation tool; one independently prompted synthetic image per project",
+  "prompt": "Use case: photorealistic-natural. Asset type: synthetic computer vision test input for a classroom occupancy prototype. Generate one realistic landscape photograph from a fixed upper corner camera of an EMPTY small classroom, with six empty chairs and desks, one backpack on a desk, strong diagonal window shadows, and a wall-mounted television visibly showing a life-size photograph of a seated adult person. No physically present people. Make the TV frame unambiguous and the depicted person's full torso visible. Natural ordinary room, no logos, no bounding boxes, no infographic, no captions. This is deliberately synthetic evaluation material, not claimed real footage.",
+  "sha256": "a5428b36da37f84da3d3de3d21b196456bf568f1255266e4668730dcc29b83ae",
+  "reviewed_reference": "Human-reviewed synthetic scene: no physically present person; one person depicted on a TV; empty chairs, a bag and shadows. Prompt count of six chairs is approximate, not an annotation.",
+  "scope": "Exploratory generated input, n=1 per project, no statistical accuracy claim, no training or threshold tuning, excluded from headline held-out benchmarks."
+}
