@@ -1,0 +1,34 @@
+[
+  {
+    "op": "sensors",
+    "values": {
+      "camera_valid": true,
+      "sensor_valid": true,
+      "actuator_ok": true,
+      "jam": false,
+      "obstruction": false,
+      "person_obstruction": false,
+      "fill": 20,
+      "weight": 100
+    }
+  },
+  {
+    "op": "override",
+    "mode": "auto"
+  },
+  {
+    "op": "sensors",
+    "values": {
+      "count": 1,
+      "motion": false,
+      "reliable": true
+    }
+  },
+  {
+    "op": "check"
+  },
+  {
+    "op": "step",
+    "seconds": 600
+  }
+]
