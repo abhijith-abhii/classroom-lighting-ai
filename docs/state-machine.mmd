@@ -1,0 +1,10 @@
+stateDiagram-v2
+ [*] --> Uncertain
+ Uncertain --> Occupied: reliable person candidate
+ Occupied --> Uncertain: camera invalid or ambiguous
+ Occupied --> Vacant: two negative checks and grace elapsed
+ Uncertain --> Vacant: reliable negatives and grace elapsed
+ Vacant --> Occupied: person candidate
+ Vacant --> Uncertain: event or invalid camera
+ Occupied --> Stale: observation age exceeds limit
+ Stale --> Occupied: fresh positive

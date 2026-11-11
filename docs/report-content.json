@@ -1,0 +1,144 @@
+{
+  "title": "Smart classroom occupancy and lighting",
+  "kind": "classroom",
+  "intro": "A camera candidate count drives a conservative lighting state machine. Motion and door events request new checks; absence of motion never establishes vacancy. The default recheck interval is 600 seconds, with a 120-second grace period and two negative observations before switch-off. Tracking provides line-crossing counts only when camera geometry supports that interpretation.",
+  "scope": "Raspberry Pi targeted, desktop simulation tested. No Pi, real sensor, electrical power, camera timing, motor or physical safety validation was performed. This is an AI-assisted personal engineering project; it does not establish professional seniority or independent authorship.",
+  "policies": [
+    "Start in UNCERTAIN with lights on. Positive visual candidates retain occupied status even without motion.",
+    "An unreliable, disconnected or expired frame cannot confirm vacancy. The same stored image expires after two simulation seconds when a new check is requested.",
+    "Two negative checks and elapsed grace permit VACANT and lights off. Default polling can miss a short visit between checks; door and motion events reduce that delay when reliable.",
+    "Manual ON or OFF expires after 300 simulated seconds. Explicit manual OFF can darken an occupied room; it is logged and must remain a deliberate action."
+  ],
+  "model": "YOLO11n weights are used as pretrained; no detector weights were trained or fine-tuned. ONNX exports use static 320 and 640 input sizes, float32, opset 17, CPU execution, two inference threads, argmax class selection and per-class NMS at IoU 0.45. Thresholds 0.15, 0.25, 0.40 and 0.55 were compared on 42 validation images; 0.25 was selected before evaluating 78 test images. Resolution is the measured model improvement; temporal and sensor policies are evaluated separately.",
+  "tradeoff": "Higher resolution increased F1 from 0.632 to 0.736 but lowered precision from 0.867 to 0.829 and increased detector median host latency from 13.31 to 48.50 ms. The combined policy kept lights on throughout the difficult one-hour scripted trace: occupied-off time fell from 1200 to 0 seconds, while assumed energy rose from 40 to 120 Wh. This experiment does not demonstrate energy savings.",
+  "limitations": "Nine of ten synthetic framed-photo composites still produced person candidates. The target for lighting is a physically present person, but COCO labels and the pretrained detector represent visual people; they do not establish liveness. Configured depiction zones mark ambiguity, and cannot discover every poster or screen. Tracking can also track a poster. No real classroom poster, seated-person, bags, crowd or screen-specific accuracy was measured. Image splits lack recording IDs; crowd annotations are excluded under a documented nonstandard metric.",
+  "metrics": [
+    {
+      "metric": "Person detection F1",
+      "baseline": 0.6319444444444445,
+      "final": 0.735562310030395,
+      "unit": "score",
+      "scope": "78 COCO test images; IoU >= 0.5; threshold 0.25; 320 to 640 pixels",
+      "absolute_change": 0.10361786558595043,
+      "relative_change_percent": 16.39667323557897
+    },
+    {
+      "metric": "Count mean absolute error",
+      "baseline": 1.1282051282051282,
+      "final": 0.6025641025641025,
+      "unit": "people/image",
+      "scope": "Same 78 images; visual labels, not verified physical presence",
+      "absolute_change": -0.5256410256410257,
+      "relative_change_percent": -46.59090909090909
+    },
+    {
+      "metric": "Occupied with lights off",
+      "baseline": 1200,
+      "final": 0,
+      "unit": "simulated seconds",
+      "scope": "3600-second scripted trace; default 600-second interval",
+      "absolute_change": -1200,
+      "relative_change_percent": -100.0
+    },
+    {
+      "metric": "Estimated lighting energy",
+      "baseline": 40,
+      "final": 120,
+      "unit": "Wh",
+      "scope": "Assumed 120 W load; synthetic trace; no measured power",
+      "absolute_change": 80,
+      "relative_change_percent": 200.0
+    }
+  ],
+  "timing": {
+    "sample": "1296",
+    "count": 30,
+    "cold_request_ms": 75.74954116716981,
+    "median_ms": 52.2345625795424,
+    "p95_ms": 52.793523226864636,
+    "throughput_requests_s": 19.1232448972948,
+    "wall_seconds": 1.5687714172527194,
+    "cpu_seconds": 2.974525,
+    "cpu_core_equivalents": 1.896085667604194,
+    "process_rss_bytes": 295321600,
+    "samples_ms": [
+      54.20691706240177,
+      52.46745888143778,
+      52.051374688744545,
+      51.87570909038186,
+      52.132082637399435,
+      52.509458269923925,
+      52.0384581759572,
+      52.63108294457197,
+      52.715125028043985,
+      51.736332941800356,
+      52.285667043179274,
+      52.56620794534683,
+      52.30008298531175,
+      52.39383317530155,
+      52.22604190930724,
+      52.2513329051435,
+      52.299208007752895,
+      51.8200839869678,
+      52.021041978150606,
+      52.057374734431505,
+      52.34966706484556,
+      52.114333026111126,
+      52.205500192940235,
+      51.637458615005016,
+      52.44587454944849,
+      52.19495901837945,
+      52.16862494125962,
+      51.95624986663461,
+      52.243083249777555,
+      52.857667207717896
+    ],
+    "scope": "Flask test-client full request including disk image decode, inference, annotation JPEG, controller, SQLite commit and JSON serialization. No network/browser time; same image repeated; cumulative process RSS with other loaded models."
+  },
+  "panels": [
+    [
+      "Input and detections",
+      "Uploaded image/recorded frame with boxes, or a clearly labeled synthetic scene."
+    ],
+    [
+      "Observation",
+      "Controller state, distinct from detector confidence."
+    ],
+    [
+      "Count and actuator",
+      "Candidate count/free slots/acknowledged disposals; virtual output only."
+    ],
+    [
+      "Last inference",
+      "Measured model/preprocessing time on this host; not Pi latency."
+    ],
+    [
+      "Latest decision and sensors",
+      "Reason, validity and current virtual sensor values."
+    ],
+    [
+      "Observation history",
+      "Count versus explicit simulation time; duplicate timestamps may overlap."
+    ],
+    [
+      "Experiment controls",
+      "Fault scenarios, manual requests, threshold and applicable interval controls."
+    ],
+    [
+      "Event ledger",
+      "Latest 30 rendered events from a 500-event export window; database retains all events."
+    ],
+    [
+      "Recorded benchmarks",
+      "Frozen historical results and JSON export; not recomputed by dashboard controls."
+    ]
+  ],
+  "demo": "Click stationary and observe OCCUPIED / LIGHTS ON after ten simulated minutes. Click poster and see UNCERTAIN / LIGHTS ON. Click camera disconnect to see the failure reason. For vacancy, set fixture count to zero, Check now, then advance ten minutes; grace and two confirmations permit lights off. Manual OFF expires after five simulated minutes.",
+  "bom": "Raspberry Pi 4 or 5 with 64-bit OS, USB camera, PIR motion sensor with verified 3.3 V output, door reed switch, LED and 330 ohm resistor, microSD, suitable Pi supply.",
+  "wiring": "Example BCM allocation: LED GPIO17 through 330 ohm resistor to ground; motion GPIO27; door GPIO22 with pull-up. USB camera uses USB. Verify the PIR output voltage before connection. These are suggested pins, not a tested harness.",
+  "resume": [
+    "Built a Raspberry Pi\u2013targeted occupancy simulator with YOLO11n inference, IoU tracking, event-triggered checks, manual override and persistent decision logs.",
+    "Compared 320- and 640-pixel inference on 78 held-out COCO images, improving person F1 from 0.632 to 0.736 while documenting latency and precision costs.",
+    "Reduced occupied-room light-off time from 1200 to 0 seconds in a 3600-second scripted trace; documented the increase from 40 to 120 Wh under an assumed 120 W load."
+  ]
+}
