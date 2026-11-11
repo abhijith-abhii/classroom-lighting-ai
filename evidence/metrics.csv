@@ -1,0 +1,5 @@
+metric,baseline,final,unit,scope,absolute_change,relative_change_percent
+Person detection F1,0.6319444444444445,0.735562310030395,score,78 COCO test images; IoU >= 0.5; threshold 0.25; 320 to 640 pixels,0.10361786558595043,16.39667323557897
+Count mean absolute error,1.1282051282051282,0.6025641025641025,people/image,"Same 78 images; visual labels, not verified physical presence",-0.5256410256410257,-46.59090909090909
+Occupied with lights off,1200,0,simulated seconds,3600-second scripted trace; default 600-second interval,-1200,-100.0
+Estimated lighting energy,40,120,Wh,Assumed 120 W load; synthetic trace; no measured power,80,200.0

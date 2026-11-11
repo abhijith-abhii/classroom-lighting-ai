@@ -1,0 +1,27 @@
+[
+  {
+    "scenario": "stationary",
+    "status": "occupied",
+    "passed": true
+  },
+  {
+    "scenario": "poster",
+    "status": "uncertain",
+    "passed": true
+  },
+  {
+    "scenario": "camera_disconnect",
+    "status": "uncertain",
+    "passed": true
+  },
+  {
+    "check": "actual neural-network inference",
+    "sample": "1296",
+    "passed": true
+  },
+  {
+    "check": "two recorded synthetic video frames then end-of-file disconnect",
+    "passed": true,
+    "scope": "I/O and inference path only; not recognition or tracking accuracy"
+  }
+]

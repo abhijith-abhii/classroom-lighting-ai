@@ -1,0 +1,199 @@
+{
+  "project": "classroom-lighting-ai",
+  "status": "Raspberry Pi targeted, desktop simulation tested. No Pi, real sensor, electrical power, camera timing, motor or physical safety validation was performed. This is an AI-assisted personal engineering project; it does not establish professional seniority or independent authorship.",
+  "summary": [
+    {
+      "metric": "Person detection F1",
+      "baseline": 0.6319444444444445,
+      "final": 0.735562310030395,
+      "unit": "score",
+      "scope": "78 COCO test images; IoU >= 0.5; threshold 0.25; 320 to 640 pixels",
+      "absolute_change": 0.10361786558595043,
+      "relative_change_percent": 16.39667323557897
+    },
+    {
+      "metric": "Count mean absolute error",
+      "baseline": 1.1282051282051282,
+      "final": 0.6025641025641025,
+      "unit": "people/image",
+      "scope": "Same 78 images; visual labels, not verified physical presence",
+      "absolute_change": -0.5256410256410257,
+      "relative_change_percent": -46.59090909090909
+    },
+    {
+      "metric": "Occupied with lights off",
+      "baseline": 1200,
+      "final": 0,
+      "unit": "simulated seconds",
+      "scope": "3600-second scripted trace; default 600-second interval",
+      "absolute_change": -1200,
+      "relative_change_percent": -100.0
+    },
+    {
+      "metric": "Estimated lighting energy",
+      "baseline": 40,
+      "final": 120,
+      "unit": "Wh",
+      "scope": "Assumed 120 W load; synthetic trace; no measured power",
+      "absolute_change": 80,
+      "relative_change_percent": 200.0
+    }
+  ],
+  "environment": "macOS-26.2-arm64-arm-64bit",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "request_timing": {
+    "sample": "1296",
+    "count": 30,
+    "cold_request_ms": 75.74954116716981,
+    "median_ms": 52.2345625795424,
+    "p95_ms": 52.793523226864636,
+    "throughput_requests_s": 19.1232448972948,
+    "wall_seconds": 1.5687714172527194,
+    "cpu_seconds": 2.974525,
+    "cpu_core_equivalents": 1.896085667604194,
+    "process_rss_bytes": 295321600,
+    "samples_ms": [
+      54.20691706240177,
+      52.46745888143778,
+      52.051374688744545,
+      51.87570909038186,
+      52.132082637399435,
+      52.509458269923925,
+      52.0384581759572,
+      52.63108294457197,
+      52.715125028043985,
+      51.736332941800356,
+      52.285667043179274,
+      52.56620794534683,
+      52.30008298531175,
+      52.39383317530155,
+      52.22604190930724,
+      52.2513329051435,
+      52.299208007752895,
+      51.8200839869678,
+      52.021041978150606,
+      52.057374734431505,
+      52.34966706484556,
+      52.114333026111126,
+      52.205500192940235,
+      51.637458615005016,
+      52.44587454944849,
+      52.19495901837945,
+      52.16862494125962,
+      51.95624986663461,
+      52.243083249777555,
+      52.857667207717896
+    ],
+    "scope": "Flask test-client full request including disk image decode, inference, annotation JPEG, controller, SQLite commit and JSON serialization. No network/browser time; same image repeated; cumulative process RSS with other loaded models."
+  },
+  "control": {
+    "baseline": {
+      "occupied_lights_off_seconds": 1200,
+      "empty_lights_on_seconds": 600,
+      "lights_on_seconds": 1200,
+      "estimated_energy_Wh": 40.0,
+      "scope": "3600 simulated seconds; 120 W fixed lighting load assumed; no measured power"
+    },
+    "grace_confirmation": {
+      "occupied_lights_off_seconds": 600,
+      "empty_lights_on_seconds": 600,
+      "lights_on_seconds": 1800,
+      "estimated_energy_Wh": 60.0,
+      "scope": "3600 simulated seconds; 120 W fixed lighting load assumed; no measured power"
+    },
+    "uncertainty_hold": {
+      "occupied_lights_off_seconds": 900,
+      "empty_lights_on_seconds": 900,
+      "lights_on_seconds": 1800,
+      "estimated_energy_Wh": 60.0,
+      "scope": "3600 simulated seconds; 120 W fixed lighting load assumed; no measured power"
+    },
+    "event_checks": {
+      "occupied_lights_off_seconds": 900,
+      "empty_lights_on_seconds": 0,
+      "lights_on_seconds": 900,
+      "estimated_energy_Wh": 30.0,
+      "scope": "3600 simulated seconds; 120 W fixed lighting load assumed; no measured power"
+    },
+    "combined": {
+      "occupied_lights_off_seconds": 0,
+      "empty_lights_on_seconds": 1800,
+      "lights_on_seconds": 3600,
+      "estimated_energy_Wh": 120.0,
+      "scope": "3600 simulated seconds; 120 W fixed lighting load assumed; no measured power"
+    }
+  },
+  "model": {
+    "baseline": {
+      "tp": 91,
+      "fp": 14,
+      "fn": 92,
+      "precision": 0.8666666666666667,
+      "recall": 0.4972677595628415,
+      "f1": 0.6319444444444445,
+      "count_mae": 1.1282051282051282,
+      "images": 78,
+      "ignored_crowd_annotations": 2,
+      "per_class": {
+        "person": {
+          "tp": 91,
+          "fp": 14,
+          "fn": 92,
+          "precision": 0.8666666666666667,
+          "recall": 0.4972677595628415,
+          "f1": 0.6319444444444445
+        }
+      }
+    },
+    "resolution_only": {
+      "tp": 121,
+      "fp": 25,
+      "fn": 62,
+      "precision": 0.8287671232876712,
+      "recall": 0.6612021857923497,
+      "f1": 0.735562310030395,
+      "count_mae": 0.6025641025641025,
+      "images": 78,
+      "ignored_crowd_annotations": 2,
+      "per_class": {
+        "person": {
+          "tp": 121,
+          "fp": 25,
+          "fn": 62,
+          "precision": 0.8287671232876712,
+          "recall": 0.6612021857923497,
+          "f1": 0.735562310030395
+        }
+      }
+    },
+    "final": {
+      "tp": 121,
+      "fp": 25,
+      "fn": 62,
+      "precision": 0.8287671232876712,
+      "recall": 0.6612021857923497,
+      "f1": 0.735562310030395,
+      "count_mae": 0.6025641025641025,
+      "images": 78,
+      "ignored_crowd_annotations": 2,
+      "per_class": {
+        "person": {
+          "tp": 121,
+          "fp": 25,
+          "fn": 62,
+          "precision": 0.8287671232876712,
+          "recall": 0.6612021857923497,
+          "f1": 0.735562310030395
+        }
+      }
+    },
+    "depiction_stress": {
+      "composites": 10,
+      "images_with_false_physical_person_candidate": 9,
+      "scope": "Entire input is a synthetic framed depiction. COCO source photos transformed; no real classroom posters evaluated. Known depiction zone can mark uncertainty; tracking alone does not solve this."
+    }
+  },
+  "protocol": "YOLO11n weights are used as pretrained; no detector weights were trained or fine-tuned. ONNX exports use static 320 and 640 input sizes, float32, opset 17, CPU execution, two inference threads, argmax class selection and per-class NMS at IoU 0.45. Thresholds 0.15, 0.25, 0.40 and 0.55 were compared on 42 validation images; 0.25 was selected before evaluating 78 test images. Resolution is the measured model improvement; temporal and sensor policies are evaluated separately.",
+  "limitations": "Nine of ten synthetic framed-photo composites still produced person candidates. The target for lighting is a physically present person, but COCO labels and the pretrained detector represent visual people; they do not establish liveness. Configured depiction zones mark ambiguity, and cannot discover every poster or screen. Tracking can also track a poster. No real classroom poster, seated-person, bags, crowd or screen-specific accuracy was measured. Image splits lack recording IDs; crowd annotations are excluded under a documented nonstandard metric.",
+  "tradeoff": "Higher resolution increased F1 from 0.632 to 0.736 but lowered precision from 0.867 to 0.829 and increased detector median host latency from 13.31 to 48.50 ms. The combined policy kept lights on throughout the difficult one-hour scripted trace: occupied-off time fell from 1200 to 0 seconds, while assumed energy rose from 40 to 120 Wh. This experiment does not demonstrate energy savings."
+}
